@@ -1,36 +1,51 @@
-
-
-
-import { Toaster } from 'react-hot-toast'
-import Footer from './components/Footer'
-import HomePage from './pages/home/HomePage'
-import LoginPage from './pages/LoginPage'
-import SignUpPage from './pages/SignUpPage'
-import { Route, Routes } from 'react-router-dom'
-import { userAuthStore } from './store/authUser'
-import { useEffect } from 'react'
-// import Footer from './components/Footer'
+import React from "react";
+import './App.css'
+import Header from './components/Header.jsx';
+import HomeBanner from "./components/HomeBanner";
+import Login from "./components/Login";
+import Banner from "./components/Banner";
+import List from "./components/List";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-  const { user, isCheckingAuth, authCheck } = userAuthStore()
-  console.log("auth user is here:", user);
-
-  useEffect(() => {
-    authCheck();
-  }, []);
   return (
-    <>
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/signup' element={<SignUpPage />} />
-      </Routes>
-      <Footer />
-      <Toaster />
-    </>
-
-
-  )
+    <React.Fragment>
+      <Router>
+        <Routes>
+          <Route path="/" element={
+            <React.Fragment>
+              <Header/>
+              <HomeBanner/>
+            </React.Fragment>
+          }/>
+          <Route path="/login" element={
+            <React.Fragment>
+              <Header/>
+              <Login/>
+            </React.Fragment>
+          }/>
+          <Route path="/register" element={
+            <React.Fragment>
+              <Header/>
+              <Login/>
+            </React.Fragment>
+          }/>
+          <Route path="/dashboard" element={
+            <React.Fragment>
+              <Header/>
+              <Banner/>
+              <List title="Netflix Originals" param="originals"/>
+              <List title="Trending Now" param="trending"/>
+              <List title="Now Playing" param="now_playing"/>
+              <List title="popular" param="popular"/>
+              <List title="Top Rated" param="top_rated"/>
+              <List title="Upcoming" param="upcoming"/>
+            </React.Fragment>
+          }/>
+        </Routes>
+      </Router>
+    </React.Fragment>
+  );
 }
 
-export default App
+export default App;
